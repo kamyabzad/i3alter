@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "i3alter"
+version = "0.1.0"
+description = "Add alt-tab behaviour to i3"
+authors = ["Kamyab Taghizadeh <kamyab.zad@gmail.com>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = ">=3.6.2"
+i3ipc = "^2.2.1"
+
+[tool.poetry.dev-dependencies]
+black = "^21.7b0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
