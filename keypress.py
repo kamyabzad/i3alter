@@ -1,7 +1,9 @@
 from pynput import keyboard
+from pynput.keyboard._xorg import KeyCode
 
 MODIFIER_KEY = keyboard.Key.alt
 ACTION_KEY = keyboard.Key.tab
+REVERSE_ACTION_KEY = 65056
 
 
 def DO_NOTHING(*args, **kwargs):
@@ -26,6 +28,8 @@ class KeyCapture:
         elif self.waiting:
             if key == ACTION_KEY:
                 self.act()
+            elif isinstance(key, KeyCode) and key.vk == REVERSE_ACTION_KEY:
+                self.act(reverse=True)
 
     def on_release(self, key):
         if self.waiting:
@@ -36,10 +40,11 @@ class KeyCapture:
         self.waiting = False
         self.action_counter = 0
 
-    def act(self):
-
-        self.action_counter += 1
-
+    def act(self, reverse=False):
+        if reverse:
+            self.action_counter -= 1
+        else:
+            self.action_counter += 1
         self.action_func(self.action_counter)
 
     def finish(self):
