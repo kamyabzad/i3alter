@@ -9,6 +9,7 @@ from i3ipc import Event
 class I3Alter:
     def __init__(self):
         self.workspaces = []
+        self.alt_workspaces = []
         self.i3 = None
 
     def on_workspace_focus(self, i3, e):
@@ -26,17 +27,22 @@ class I3Alter:
         if len(self.workspaces) == 1:
             return
 
-        next_index = actions % len(self.workspaces)
-        next_ws = self.workspaces[next_index]
+        if abs(actions) == 1:
+            self.alt_workspaces = self.workspaces.copy()
 
-        first = self.workspaces.pop(0)
-        self.workspaces = [
-            *self.workspaces[: actions - 1],
-            first,
-            *self.workspaces[actions:],
-        ]
-
+        next_index = actions % len(self.alt_workspaces)
+        next_ws = self.alt_workspaces[next_index]
         await self.i3.command(f"workspace {next_ws}")
+
+    async def finish_switching(self, actions):
+        if not actions:
+            return
+
+        self.workspaces = self.alt_workspaces.copy()
+        next_ws_idx = actions % len(self.workspaces)
+        next_ws = self.workspaces.pop(next_ws_idx)
+        self.workspaces = [next_ws, *self.workspaces]
+
 
     async def main(self):
         self.i3 = await Connection().connect()
@@ -55,7 +61,10 @@ async def main():
     def switch_sync(offset: int):
         asyncio.run(i3alter.switch_workspace(offset))
 
-    keycapture = KeyCapture(switch_sync)
+    def finish_sync(actions):
+        asyncio.run(i3alter.finish_switching(actions))
+
+    keycapture = KeyCapture(switch_sync, finish_sync)
     i3task = asyncio.create_task(i3alter.main())
 
     keycapture.start_listening()
