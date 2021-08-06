@@ -16,5 +16,3 @@ bindsym mod1+Shift+Tab exec "false"
 
 exec_always PATH/TO/REPO/i3alter/i3alter.py
 #+end_src
-
-Run ~i3alter/i3alter.py~ and you're good to go!
