@@ -10,6 +10,7 @@ class I3Alter:
     def __init__(self):
         self.workspaces = []
         self.alt_workspaces = []
+        self.alting = False
         self.i3 = None
 
     def on_workspace_focus(self, i3, e):
@@ -27,7 +28,8 @@ class I3Alter:
         if len(self.workspaces) == 1:
             return
 
-        if abs(actions) == 1:
+        if abs(actions) == 1 and not self.alting:
+            self.alting = True
             self.alt_workspaces = self.workspaces.copy()
 
         next_index = actions % len(self.alt_workspaces)
@@ -38,6 +40,7 @@ class I3Alter:
         if not actions:
             return
 
+        self.alting = False
         self.workspaces = self.alt_workspaces.copy()
         next_ws_idx = actions % len(self.workspaces)
         next_ws = self.workspaces.pop(next_ws_idx)
