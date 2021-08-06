@@ -40,31 +40,6 @@ class KeyCapture:
 
       __listener (pynput.keyboard.Listener):
         listener object for keyboard events
-
-    Methods:
-      start_listening:
-        start listening to keystrokes
-
-      stop_listening:
-        stop listening to keystrokes
-
-      __on_press:
-        handle key press events
-        alter __switching state/invoke switches
-
-      __on_release:
-        handle key release events
-        alter __switching state
-
-      __rest:
-        unset __switching state and __switch_counter
-
-      __switch:
-        invoke switches
-
-      __finish:
-        finish up switching when alt(modifier) is released
-
     """
 
     def __init__(self, on_switch=do_nothing, on_finish=do_nothing):
@@ -87,6 +62,10 @@ class KeyCapture:
         )
 
     def __on_press(self, key):
+        """
+        handle key press events
+        alter __switching state/invoke switches
+        """
         if not self.__switching and key == MODIFIER_KEY:
             self.__switching = True
         elif self.__switching:
@@ -96,15 +75,25 @@ class KeyCapture:
                 self.__switch(reverse=True)
 
     def __on_release(self, key):
+        """
+        handle key release events
+        alter __switching state
+        """
         if self.__switching:
             if key == MODIFIER_KEY:
                 self.__finish()
 
     def __rest(self):
+        """
+        unset __switching state and __switch_counter
+        """
         self.__switching = False
         self.__switch_counter = 0
 
     def __switch(self, reverse=False):
+        """
+        invoke switches
+        """
         if reverse:
             self.__switch_counter -= 1
         else:
@@ -112,13 +101,22 @@ class KeyCapture:
         self.__on_switch(self.__switch_counter)
 
     def __finish(self):
+        """
+        finish up switching when alt(modifier) is released
+        """
         self.__on_finish(self.__switch_counter)
         self.__rest()
 
     def start_listening(self):
+        """
+        start listening to keystrokes
+        """
         self.__rest()
         self.__listener.start()
 
     def stop_listening(self):
+        """
+        stop_listening to keystrokes
+        """
         self.__rest()
         self.__listener.stop()
