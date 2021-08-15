@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 import asyncio
 
-from i3con import I3Con
-from keycapture import KeyCapture
+from i3alter.i3con import I3Con
+from i3alter.keycapture import KeyCapture
 
 
-async def main():
+async def main_async():
     i3con = I3Con()
     i3task = asyncio.create_task(i3con.run())
 
@@ -20,6 +20,8 @@ async def main():
     keycapture.start_listening()
     await i3task
 
+def main():
+    asyncio.run(main_async())
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    main()

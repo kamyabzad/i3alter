@@ -3,7 +3,7 @@
 You could use i3alter to add alt-tab (switching to other workspaces in a LIFO order) behaviour to your i3wm.
 
 * Installation
-Install dependencies using either ~pip install -r requirements.txt~ or ~poetry install~.
+You could install from PyPi: ~pip install i3alter~.
 
 * Usage
 You'd probably want i3alter to run on startup, and also you wouldn't want alt+Tab and alt+Shift+Tab to be captured by other apps, so put the following lines in your i3 config file (~/.config/i3/config~):
