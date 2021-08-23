@@ -11,8 +11,8 @@ After running ~i3alter/i3alter.py~, hold ~alt~ and press ~<tab>~ or ~<shift>-<ta
 You'd probably want i3alter to run on startup, and also you wouldn't want alt+Tab and alt+Shift+Tab to be captured by other apps, so put the following lines in your i3 config file (~/.config/i3/config~):
 
 #+begin_src
-bindsym mod1+Tab exec "false"
-bindsym mod1+Shift+Tab exec "false"
+bindsym mod1+Tab exec "true"
+bindsym mod1+Shift+Tab exec "true"
 
 exec_always PATH/TO/REPO/i3alter/i3alter.py
 #+end_src
