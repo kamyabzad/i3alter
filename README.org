@@ -14,5 +14,5 @@ You'd probably want i3alter to run on startup, and also you wouldn't want alt+Ta
 bindsym mod1+Tab exec "true"
 bindsym mod1+Shift+Tab exec "true"
 
-exec_always PATH/TO/REPO/i3alter/i3alter.py
+exec i3alter
 #+end_src
