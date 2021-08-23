@@ -6,7 +6,7 @@ You could use i3alter to add alt-tab (switching to other workspaces in a LIFO or
 You could install from PyPi: ~pip install i3alter~.
 
 * Usage
-After running ~i3alter/i3alter.py~, hold ~alt~ and press ~<tab>~ or ~<shift>-<tab>~ to cycle between workspace. 
+After running ~i3alter~, hold ~alt~ and press ~<tab>~ or ~<shift>-<tab>~ to cycle between workspace. 
 
 You'd probably want i3alter to run on startup, and also you wouldn't want alt+Tab and alt+Shift+Tab to be captured by other apps, so put the following lines in your i3 config file (~/.config/i3/config~):
 
