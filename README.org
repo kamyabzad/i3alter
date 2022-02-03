@@ -3,7 +3,9 @@
 You could use i3alter to add alt-tab (switching to other workspaces in a LIFO order) behaviour to your i3wm.
 
 * Installation
-You could install from PyPi: ~pip install i3alter~.
+You could install it from PyPi:
+
+~sudo pip install i3alter~
 
 * Usage
 After running ~i3alter~, hold ~alt~ and press ~<tab>~ or ~<shift>-<tab>~ to cycle between workspace. 
@@ -14,5 +16,5 @@ You'd probably want i3alter to run on startup, and also you wouldn't want alt+Ta
 bindsym mod1+Tab exec "true"
 bindsym mod1+Shift+Tab exec "true"
 
-exec i3alter
+exec_always i3alter
 #+end_src
